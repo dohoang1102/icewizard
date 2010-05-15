@@ -1,0 +1,399 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 45;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		1D3623260D0F684500981E51 /* FirenIceAppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 1D3623250D0F684500981E51 /* FirenIceAppDelegate.m */; };
+		1D60589B0D05DD56006BFB54 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 29B97316FDCFA39411CA2CEA /* main.m */; };
+		1D60589F0D05DD5A006BFB54 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1D30AB110D05D00D00671497 /* Foundation.framework */; };
+		1DF5F4E00D08C38300B7A737 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1DF5F4DF0D08C38300B7A737 /* UIKit.framework */; };
+		28AD733F0D9D9553002E5188 /* MainWindow.xib in Resources */ = {isa = PBXBuildFile; fileRef = 28AD733E0D9D9553002E5188 /* MainWindow.xib */; };
+		28FD14FE0DC6FC130079059D /* EAGLView.m in Sources */ = {isa = PBXBuildFile; fileRef = 28FD14FD0DC6FC130079059D /* EAGLView.m */; };
+		28FD15000DC6FC520079059D /* OpenGLES.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 28FD14FF0DC6FC520079059D /* OpenGLES.framework */; };
+		28FD15080DC6FC5B0079059D /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 28FD15070DC6FC5B0079059D /* QuartzCore.framework */; };
+		D8193C7E11963FD8003BFA19 /* FIPlayerAvatar.m in Sources */ = {isa = PBXBuildFile; fileRef = D8193C7D11963FD8003BFA19 /* FIPlayerAvatar.m */; };
+		D8193C81119640EC003BFA19 /* FIIceBlock.m in Sources */ = {isa = PBXBuildFile; fileRef = D8193C80119640EC003BFA19 /* FIIceBlock.m */; };
+		D8193C8C1196D112003BFA19 /* FIStage.m in Sources */ = {isa = PBXBuildFile; fileRef = D8193C8B1196D112003BFA19 /* FIStage.m */; };
+		D8193CFD11970005003BFA19 /* FIGame.m in Sources */ = {isa = PBXBuildFile; fileRef = D8193CFC11970005003BFA19 /* FIGame.m */; };
+		D8193E0B11971994003BFA19 /* doc in Resources */ = {isa = PBXBuildFile; fileRef = D8193E0A11971994003BFA19 /* doc */; };
+		D81942B0119A326C003BFA19 /* FIEntity.m in Sources */ = {isa = PBXBuildFile; fileRef = D81942AF119A326C003BFA19 /* FIEntity.m */; };
+		D819467D119AF2E1003BFA19 /* FIFire.m in Sources */ = {isa = PBXBuildFile; fileRef = D819467C119AF2E1003BFA19 /* FIFire.m */; };
+		D8194874119B0DDA003BFA19 /* FIOil.m in Sources */ = {isa = PBXBuildFile; fileRef = D8194873119B0DDA003BFA19 /* FIOil.m */; };
+		D8360117119C9D2900DB198E /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D8360116119C9D2900DB198E /* CoreGraphics.framework */; };
+		D836FE92119C77D100DB198E /* data in Resources */ = {isa = PBXBuildFile; fileRef = D836FE8D119C77D100DB198E /* data */; };
+		D8B82E2D119CEBB4009EC4A3 /* FIMesh.m in Sources */ = {isa = PBXBuildFile; fileRef = D8B82E2C119CEBB4009EC4A3 /* FIMesh.m */; };
+		D8B82E32119CEE93009EC4A3 /* FITexture.m in Sources */ = {isa = PBXBuildFile; fileRef = D8B82E31119CEE93009EC4A3 /* FITexture.m */; };
+		D8D6AE4F119DA1D300FF1BEB /* FIAnimMesh.m in Sources */ = {isa = PBXBuildFile; fileRef = D8D6AE4E119DA1D300FF1BEB /* FIAnimMesh.m */; };
+		D8D6AE53119DA2C700FF1BEB /* FISprite.m in Sources */ = {isa = PBXBuildFile; fileRef = D8D6AE52119DA2C700FF1BEB /* FISprite.m */; };
+		D8D6B0E7119DD75900FF1BEB /* FITempSprite.m in Sources */ = {isa = PBXBuildFile; fileRef = D8D6B0E6119DD75900FF1BEB /* FITempSprite.m */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXFileReference section */
+		1D30AB110D05D00D00671497 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
+		1D3623240D0F684500981E51 /* FirenIceAppDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FirenIceAppDelegate.h; sourceTree = "<group>"; };
+		1D3623250D0F684500981E51 /* FirenIceAppDelegate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FirenIceAppDelegate.m; sourceTree = "<group>"; };
+		1D6058910D05DD3D006BFB54 /* FirenIce.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = FirenIce.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		1DF5F4DF0D08C38300B7A737 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
+		2514C26D10084DB100A42282 /* ES1Renderer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ES1Renderer.h; sourceTree = "<group>"; };
+		2514C26E10084DB100A42282 /* ES1Renderer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ES1Renderer.m; sourceTree = "<group>"; };
+		2514C26F10084DB100A42282 /* ES2Renderer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ES2Renderer.h; sourceTree = "<group>"; };
+		2514C27010084DB100A42282 /* ES2Renderer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ES2Renderer.m; sourceTree = "<group>"; };
+		2514C27110084DB100A42282 /* ESRenderer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ESRenderer.h; sourceTree = "<group>"; };
+		2514C27910084DCA00A42282 /* Shader.fsh */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.glsl; name = Shader.fsh; path = Shaders/Shader.fsh; sourceTree = "<group>"; };
+		2514C27A10084DCA00A42282 /* Shader.vsh */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.glsl; name = Shader.vsh; path = Shaders/Shader.vsh; sourceTree = "<group>"; };
+		28AD733E0D9D9553002E5188 /* MainWindow.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = MainWindow.xib; sourceTree = "<group>"; };
+		28FD14FC0DC6FC130079059D /* EAGLView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EAGLView.h; sourceTree = "<group>"; };
+		28FD14FD0DC6FC130079059D /* EAGLView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EAGLView.m; sourceTree = "<group>"; };
+		28FD14FF0DC6FC520079059D /* OpenGLES.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = OpenGLES.framework; path = System/Library/Frameworks/OpenGLES.framework; sourceTree = SDKROOT; };
+		28FD15070DC6FC5B0079059D /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
+		29B97316FDCFA39411CA2CEA /* main.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
+		32CA4F630368D1EE00C91783 /* FirenIce_Prefix.pch */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FirenIce_Prefix.pch; sourceTree = "<group>"; };
+		8D1107310486CEB800E47090 /* FirenIce-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "FirenIce-Info.plist"; plistStructureDefinitionIdentifier = "com.apple.xcode.plist.structure-definition.iphone.info-plist"; sourceTree = "<group>"; };
+		D8193C7C11963FD8003BFA19 /* FIPlayerAvatar.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FIPlayerAvatar.h; sourceTree = "<group>"; };
+		D8193C7D11963FD8003BFA19 /* FIPlayerAvatar.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FIPlayerAvatar.m; sourceTree = "<group>"; };
+		D8193C7F119640EC003BFA19 /* FIIceBlock.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FIIceBlock.h; sourceTree = "<group>"; };
+		D8193C80119640EC003BFA19 /* FIIceBlock.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FIIceBlock.m; sourceTree = "<group>"; };
+		D8193C8A1196D112003BFA19 /* FIStage.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FIStage.h; sourceTree = "<group>"; };
+		D8193C8B1196D112003BFA19 /* FIStage.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FIStage.m; sourceTree = "<group>"; };
+		D8193CFB11970005003BFA19 /* FIGame.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FIGame.h; sourceTree = "<group>"; };
+		D8193CFC11970005003BFA19 /* FIGame.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FIGame.m; sourceTree = "<group>"; };
+		D8193E0A11971994003BFA19 /* doc */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = doc; sourceTree = "<group>"; };
+		D8193EA911974677003BFA19 /* FIRenderer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FIRenderer.h; sourceTree = "<group>"; };
+		D8193EAA11974677003BFA19 /* FIRenderer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FIRenderer.m; sourceTree = "<group>"; };
+		D8193EAC11974722003BFA19 /* FIRendererES2.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FIRendererES2.h; sourceTree = "<group>"; };
+		D8193EAD11974722003BFA19 /* FIRendererES2.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FIRendererES2.m; sourceTree = "<group>"; };
+		D8193EC31197482E003BFA19 /* FIRendererES1.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FIRendererES1.h; sourceTree = "<group>"; };
+		D8193EC41197482E003BFA19 /* FIRendererES1.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FIRendererES1.m; sourceTree = "<group>"; };
+		D81942AE119A326C003BFA19 /* FIEntity.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FIEntity.h; sourceTree = "<group>"; };
+		D81942AF119A326C003BFA19 /* FIEntity.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FIEntity.m; sourceTree = "<group>"; };
+		D819467B119AF2E1003BFA19 /* FIFire.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FIFire.h; sourceTree = "<group>"; };
+		D819467C119AF2E1003BFA19 /* FIFire.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FIFire.m; sourceTree = "<group>"; };
+		D8194872119B0DDA003BFA19 /* FIOil.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FIOil.h; sourceTree = "<group>"; };
+		D8194873119B0DDA003BFA19 /* FIOil.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FIOil.m; sourceTree = "<group>"; };
+		D8360116119C9D2900DB198E /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
+		D836FE8D119C77D100DB198E /* data */ = {isa = PBXFileReference; lastKnownFileType = folder; name = data; path = ../FirenIce/data; sourceTree = SOURCE_ROOT; };
+		D8B82E2B119CEBB4009EC4A3 /* FIMesh.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FIMesh.h; sourceTree = "<group>"; };
+		D8B82E2C119CEBB4009EC4A3 /* FIMesh.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FIMesh.m; sourceTree = "<group>"; };
+		D8B82E30119CEE93009EC4A3 /* FITexture.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FITexture.h; sourceTree = "<group>"; };
+		D8B82E31119CEE93009EC4A3 /* FITexture.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FITexture.m; sourceTree = "<group>"; };
+		D8D6AE4D119DA1D300FF1BEB /* FIAnimMesh.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FIAnimMesh.h; sourceTree = "<group>"; };
+		D8D6AE4E119DA1D300FF1BEB /* FIAnimMesh.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FIAnimMesh.m; sourceTree = "<group>"; };
+		D8D6AE51119DA2C700FF1BEB /* FISprite.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FISprite.h; sourceTree = "<group>"; };
+		D8D6AE52119DA2C700FF1BEB /* FISprite.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FISprite.m; sourceTree = "<group>"; };
+		D8D6AE5C119DA64E00FF1BEB /* FIDrawable.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FIDrawable.h; sourceTree = "<group>"; };
+		D8D6B0E5119DD75900FF1BEB /* FITempSprite.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FITempSprite.h; sourceTree = "<group>"; };
+		D8D6B0E6119DD75900FF1BEB /* FITempSprite.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FITempSprite.m; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		1D60588F0D05DD3D006BFB54 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				1D60589F0D05DD5A006BFB54 /* Foundation.framework in Frameworks */,
+				1DF5F4E00D08C38300B7A737 /* UIKit.framework in Frameworks */,
+				28FD15000DC6FC520079059D /* OpenGLES.framework in Frameworks */,
+				28FD15080DC6FC5B0079059D /* QuartzCore.framework in Frameworks */,
+				D8360117119C9D2900DB198E /* CoreGraphics.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		080E96DDFE201D6D7F000001 /* Classes */ = {
+			isa = PBXGroup;
+			children = (
+				2514C26D10084DB100A42282 /* ES1Renderer.h */,
+				2514C26E10084DB100A42282 /* ES1Renderer.m */,
+				2514C26F10084DB100A42282 /* ES2Renderer.h */,
+				2514C27010084DB100A42282 /* ES2Renderer.m */,
+				2514C27110084DB100A42282 /* ESRenderer.h */,
+				28FD14FC0DC6FC130079059D /* EAGLView.h */,
+				28FD14FD0DC6FC130079059D /* EAGLView.m */,
+				1D3623240D0F684500981E51 /* FirenIceAppDelegate.h */,
+				1D3623250D0F684500981E51 /* FirenIceAppDelegate.m */,
+				D8193C7C11963FD8003BFA19 /* FIPlayerAvatar.h */,
+				D8193C7D11963FD8003BFA19 /* FIPlayerAvatar.m */,
+				D8193C7F119640EC003BFA19 /* FIIceBlock.h */,
+				D8193C80119640EC003BFA19 /* FIIceBlock.m */,
+				D8193C8A1196D112003BFA19 /* FIStage.h */,
+				D8193C8B1196D112003BFA19 /* FIStage.m */,
+				D8193CFB11970005003BFA19 /* FIGame.h */,
+				D8193CFC11970005003BFA19 /* FIGame.m */,
+				D8193EA911974677003BFA19 /* FIRenderer.h */,
+				D8193EAA11974677003BFA19 /* FIRenderer.m */,
+				D8193EC31197482E003BFA19 /* FIRendererES1.h */,
+				D8193EC41197482E003BFA19 /* FIRendererES1.m */,
+				D8193EAC11974722003BFA19 /* FIRendererES2.h */,
+				D8193EAD11974722003BFA19 /* FIRendererES2.m */,
+				D81942AE119A326C003BFA19 /* FIEntity.h */,
+				D81942AF119A326C003BFA19 /* FIEntity.m */,
+				D819467B119AF2E1003BFA19 /* FIFire.h */,
+				D819467C119AF2E1003BFA19 /* FIFire.m */,
+				D8194872119B0DDA003BFA19 /* FIOil.h */,
+				D8194873119B0DDA003BFA19 /* FIOil.m */,
+				D8B82E2B119CEBB4009EC4A3 /* FIMesh.h */,
+				D8B82E2C119CEBB4009EC4A3 /* FIMesh.m */,
+				D8B82E30119CEE93009EC4A3 /* FITexture.h */,
+				D8B82E31119CEE93009EC4A3 /* FITexture.m */,
+				D8D6AE4D119DA1D300FF1BEB /* FIAnimMesh.h */,
+				D8D6AE4E119DA1D300FF1BEB /* FIAnimMesh.m */,
+				D8D6AE51119DA2C700FF1BEB /* FISprite.h */,
+				D8D6AE52119DA2C700FF1BEB /* FISprite.m */,
+				D8D6AE5C119DA64E00FF1BEB /* FIDrawable.h */,
+				D8D6B0E5119DD75900FF1BEB /* FITempSprite.h */,
+				D8D6B0E6119DD75900FF1BEB /* FITempSprite.m */,
+			);
+			path = Classes;
+			sourceTree = "<group>";
+		};
+		19C28FACFE9D520D11CA2CBB /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				1D6058910D05DD3D006BFB54 /* FirenIce.app */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		2514C27610084DB600A42282 /* Shaders */ = {
+			isa = PBXGroup;
+			children = (
+				2514C27910084DCA00A42282 /* Shader.fsh */,
+				2514C27A10084DCA00A42282 /* Shader.vsh */,
+			);
+			name = Shaders;
+			sourceTree = "<group>";
+		};
+		29B97314FDCFA39411CA2CEA /* CustomTemplate */ = {
+			isa = PBXGroup;
+			children = (
+				D8193E0911971988003BFA19 /* Doc */,
+				080E96DDFE201D6D7F000001 /* Classes */,
+				2514C27610084DB600A42282 /* Shaders */,
+				29B97315FDCFA39411CA2CEA /* Other Sources */,
+				29B97317FDCFA39411CA2CEA /* Resources */,
+				29B97323FDCFA39411CA2CEA /* Frameworks */,
+				19C28FACFE9D520D11CA2CBB /* Products */,
+			);
+			name = CustomTemplate;
+			sourceTree = "<group>";
+		};
+		29B97315FDCFA39411CA2CEA /* Other Sources */ = {
+			isa = PBXGroup;
+			children = (
+				32CA4F630368D1EE00C91783 /* FirenIce_Prefix.pch */,
+				29B97316FDCFA39411CA2CEA /* main.m */,
+			);
+			name = "Other Sources";
+			sourceTree = "<group>";
+		};
+		29B97317FDCFA39411CA2CEA /* Resources */ = {
+			isa = PBXGroup;
+			children = (
+				D836FE8D119C77D100DB198E /* data */,
+				28AD733E0D9D9553002E5188 /* MainWindow.xib */,
+				8D1107310486CEB800E47090 /* FirenIce-Info.plist */,
+			);
+			name = Resources;
+			sourceTree = "<group>";
+		};
+		29B97323FDCFA39411CA2CEA /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				28FD15070DC6FC5B0079059D /* QuartzCore.framework */,
+				28FD14FF0DC6FC520079059D /* OpenGLES.framework */,
+				1DF5F4DF0D08C38300B7A737 /* UIKit.framework */,
+				1D30AB110D05D00D00671497 /* Foundation.framework */,
+				D8360116119C9D2900DB198E /* CoreGraphics.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		D8193E0911971988003BFA19 /* Doc */ = {
+			isa = PBXGroup;
+			children = (
+				D8193E0A11971994003BFA19 /* doc */,
+			);
+			name = Doc;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		1D6058900D05DD3D006BFB54 /* FirenIce */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 1D6058960D05DD3E006BFB54 /* Build configuration list for PBXNativeTarget "FirenIce" */;
+			buildPhases = (
+				D836FE95119C77E600DB198E /* ShellScript */,
+				1D60588D0D05DD3D006BFB54 /* Resources */,
+				1D60588E0D05DD3D006BFB54 /* Sources */,
+				1D60588F0D05DD3D006BFB54 /* Frameworks */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = FirenIce;
+			productName = FirenIce;
+			productReference = 1D6058910D05DD3D006BFB54 /* FirenIce.app */;
+			productType = "com.apple.product-type.application";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		29B97313FDCFA39411CA2CEA /* Project object */ = {
+			isa = PBXProject;
+			buildConfigurationList = C01FCF4E08A954540054247B /* Build configuration list for PBXProject "FireNIce" */;
+			compatibilityVersion = "Xcode 3.1";
+			hasScannedForEncodings = 1;
+			mainGroup = 29B97314FDCFA39411CA2CEA /* CustomTemplate */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				1D6058900D05DD3D006BFB54 /* FirenIce */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		1D60588D0D05DD3D006BFB54 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				28AD733F0D9D9553002E5188 /* MainWindow.xib in Resources */,
+				D8193E0B11971994003BFA19 /* doc in Resources */,
+				D836FE92119C77D100DB198E /* data in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		D836FE95119C77E600DB198E /* ShellScript */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "touch data";
+		};
+/* End PBXShellScriptBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		1D60588E0D05DD3D006BFB54 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				1D60589B0D05DD56006BFB54 /* main.m in Sources */,
+				1D3623260D0F684500981E51 /* FirenIceAppDelegate.m in Sources */,
+				28FD14FE0DC6FC130079059D /* EAGLView.m in Sources */,
+				D8193C7E11963FD8003BFA19 /* FIPlayerAvatar.m in Sources */,
+				D8193C81119640EC003BFA19 /* FIIceBlock.m in Sources */,
+				D8193C8C1196D112003BFA19 /* FIStage.m in Sources */,
+				D8193CFD11970005003BFA19 /* FIGame.m in Sources */,
+				D81942B0119A326C003BFA19 /* FIEntity.m in Sources */,
+				D819467D119AF2E1003BFA19 /* FIFire.m in Sources */,
+				D8194874119B0DDA003BFA19 /* FIOil.m in Sources */,
+				D8B82E2D119CEBB4009EC4A3 /* FIMesh.m in Sources */,
+				D8B82E32119CEE93009EC4A3 /* FITexture.m in Sources */,
+				D8D6AE4F119DA1D300FF1BEB /* FIAnimMesh.m in Sources */,
+				D8D6AE53119DA2C700FF1BEB /* FISprite.m in Sources */,
+				D8D6B0E7119DD75900FF1BEB /* FITempSprite.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin XCBuildConfiguration section */
+		1D6058940D05DD3E006BFB54 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				COPY_PHASE_STRIP = NO;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = FirenIce_Prefix.pch;
+				"GCC_THUMB_SUPPORT[arch=armv6]" = "";
+				INFOPLIST_FILE = "FirenIce-Info.plist";
+				PRODUCT_NAME = FirenIce;
+			};
+			name = Debug;
+		};
+		1D6058950D05DD3E006BFB54 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				COPY_PHASE_STRIP = YES;
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = FirenIce_Prefix.pch;
+				"GCC_THUMB_SUPPORT[arch=armv6]" = "";
+				INFOPLIST_FILE = "FirenIce-Info.plist";
+				PRODUCT_NAME = FirenIce;
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		C01FCF4F08A954540054247B /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ARCHS = "$(ARCHS_STANDARD_32_BIT)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				GCC_C_LANGUAGE_STANDARD = c99;
+				GCC_PREPROCESSOR_DEFINITIONS = DEBUG;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				PREBINDING = NO;
+				SDKROOT = iphoneos3.1.3;
+			};
+			name = Debug;
+		};
+		C01FCF5008A954540054247B /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ARCHS = "$(ARCHS_STANDARD_32_BIT)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				GCC_C_LANGUAGE_STANDARD = c99;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				OTHER_CFLAGS = "-DNS_BLOCK_ASSERTIONS=1";
+				PREBINDING = NO;
+				SDKROOT = iphoneos3.1.3;
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		1D6058960D05DD3E006BFB54 /* Build configuration list for PBXNativeTarget "FirenIce" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				1D6058940D05DD3E006BFB54 /* Debug */,
+				1D6058950D05DD3E006BFB54 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		C01FCF4E08A954540054247B /* Build configuration list for PBXProject "FireNIce" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				C01FCF4F08A954540054247B /* Debug */,
+				C01FCF5008A954540054247B /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = 29B97313FDCFA39411CA2CEA /* Project object */;
+}

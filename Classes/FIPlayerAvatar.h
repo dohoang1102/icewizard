@@ -24,7 +24,10 @@ typedef enum {
 
 -(id)initWithX:(int)_x y:(int)_y stage:(FIStage*)theStage;
 
--(void)render;
+-(void)magic;
+-(void)stopMagic;
+
+-(void)buildMesh;
 
 -(void)updateState:(float)dt;
 

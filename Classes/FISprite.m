@@ -20,7 +20,7 @@
 	start = _start;
 	end = _end;
 	fps = _fps;
-	
+		
 	return self;
 }
 
@@ -58,13 +58,21 @@
 	return self;
 }
 
+
+-(void)dealloc {
+	[animations release];
+	
+	[super dealloc];
+}
+
+
 -(void)tick:(float)dt {
 	BOOL animationOver = NO;
 	
 	if(endFrame > startFrame) {
 		frame_f += fps * dt;
 		if((int)frame_f > endFrame) { frame_f = startFrame; animationOver = YES; }
-		
+
 	} else {
 		frame_f -= fps * dt;
 		if(frame_f < 0.0f) { frame_f = endFrame; animationOver = YES; }
@@ -73,12 +81,16 @@
 	if(animationOver && action != nil) {
 		printf("Triggering onAnimationOver\n");
 		[target performSelector:action];
+    target = nil;
+    action = nil;
+    animationOver = NO;
 	}
 }
 
 -(void)createAnimation:(NSString*)name start:(int)start end:(int)end rate:(float)rate {
 	FISpriteAnimation *newAnim = [[FISpriteAnimation alloc] initWithStart:start end:end fps:rate];
 	[animations setObject:newAnim forKey:name];
+	[newAnim release];
 }
 
 -(void)setAnimationTo:(NSString*)animationName {
@@ -87,10 +99,14 @@
 		startFrame = anim.start;
 		endFrame = anim.end;
 		fps = anim.fps;
-		if(anim.start > anim.end)
+		/*if(anim.start > anim.end)
 			frame_f = startFrame + 1.0f;
 		else
-			frame_f = startFrame;
+			frame_f = startFrame;*/
+		frame_f = startFrame;
+    
+    target = nil;
+    action = nil;
 	}
 }
 
@@ -98,20 +114,37 @@
 	frame = frame_f;
 	
 	float u = frame * textureStep;
-
-	GLfloat coords[] = {
-		u,	0.0f,
-		u+textureStep,	0.0f,
-		u, 1.0f,
-		u+textureStep,	1.0f
-	};
+  
+  GLfloat *c;
+  if(!flipped) {
+    GLfloat coords[] = {
+      u,	0.0f,
+      u+textureStep,	0.0f,
+      u, 1.0f,
+      u+textureStep,	1.0f
+    };
+    c = coords;
+  } else {
+    GLfloat coords[] = {
+      u+textureStep,	0.0f,
+      u,	0.0f,
+      u+textureStep, 1.0f,
+      u,	1.0f
+    };
+    c = coords;
+  }
+  
 	
 	[texture use];
 	
 	glColor4f(1.0f, 1.0f, 1.0f, 1.0f);
 	glVertexPointer(2, GL_FLOAT, 0, mesh);
-	glTexCoordPointer(2, GL_FLOAT, 0, coords);
+	glTexCoordPointer(2, GL_FLOAT, 0, c);
 	glDrawArrays(GL_TRIANGLE_STRIP, 0, 4);
+}
+
+-(void)flip:(BOOL)f {
+  flipped = f;
 }
 
 -(void)onAnimationOverTarget:(id)_target action:(SEL)_action {

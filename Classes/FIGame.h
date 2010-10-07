@@ -15,7 +15,9 @@ typedef enum {
 	FITextureTypeIce,
 	FITextureTypeFire,
 	FITextureTypeOil,
-	FITextureTypeMagic
+	FITextureTypeMagic,
+	FITextureTypePoof,
+  FITextureTypePlayer
 } FITextureType;
 
 @class FIStage;
@@ -23,16 +25,21 @@ typedef enum {
 
 @interface FIGame : NSObject {
 	FIStage	*stage;
+	NSString *nextStage;
+	NSString *currentStage;
 	
-	FITexture *textures[5];
+	FITexture *textures[6];
 }
 
 @property (nonatomic,readonly) FIStage *stage;
 
 -(id)init;
 
+-(void)restartStage;
+-(void)startStageWithName:(NSString*)name;
+
 -(void)tick:(float)dt;
--(void)render;
+-(void)render:(float)dt;
 
 -(void)loadTextures;
 -(FITexture*)texture:(FITextureType)tex;

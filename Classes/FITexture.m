@@ -56,6 +56,12 @@
 	return self;
 }
 
+-(void)dealloc {
+	// Unload texture from GPU
+	
+	[super dealloc];
+}
+
 -(void)use {
 	glBindTexture(GL_TEXTURE_2D, name);
 }

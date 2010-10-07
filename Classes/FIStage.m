@@ -20,9 +20,87 @@
 #import "FITempSprite.h"
 #import "FISprite.h"
 
+#import "JSONHelper.h"
+
 @implementation FIStage
 
 @synthesize game, avatar;
+
++(FIStage*)stageWithName:(NSString*)theName game:(FIGame*)theGame {
+	return [[[FIStage alloc] initWithName:theName game:theGame] autorelease];
+}
+
+-(id)initWithName:(NSString*)theName game:(FIGame*)theGame {
+	if(![super init]) return nil;
+	
+	NSString *path = [[NSBundle mainBundle] pathForResource:theName ofType:@"lvl" inDirectory:@"data/levels"];
+	
+	if(!path) {
+		printf("Level %s not found.\n", [path UTF8String]);
+		return nil;
+	}
+  
+  game = theGame;
+	
+	mesh = NULL;  
+  
+  iceBlocks = [[NSMutableArray alloc] init];
+	flames = [[NSMutableArray alloc] init];
+	oils = [[NSMutableArray alloc] init];
+	temps = [[NSMutableArray alloc] init];
+  
+  toRemove = [[NSMutableArray alloc] init];
+	
+	NSDictionary *levelData = [JSONHelper dictionaryFromJSONPath:path];
+	
+	NSArray *wallsData = [levelData objectForKey:@"map"];
+	
+  int iceLength = 0;
+  BOOL left = NO;
+  BOOL right = NO;
+  for(int y=0; y<MAP_HEIGHT; y++) {
+    for(int x=0; x<MAP_WIDTH; x++) {
+      
+      int t = y * MAP_WIDTH + x;
+      int val = [[wallsData objectAtIndex:t] intValue];
+      		
+      if(val <= 1 || val==7 || val==8) {
+        if(val <= 1)
+          walls[t] = val;
+        else if(val == 7)
+          [oils addObject:[[[FIOil alloc] initWithX:x y:y burning:NO stage:self] autorelease]];
+        else if(val == 8)
+          [oils addObject:[[[FIOil alloc] initWithX:x y:y burning:YES stage:self] autorelease]];
+      
+        if(iceLength > 0) {
+          [iceBlocks addObject:[FIIceBlock blockWithX:x-iceLength y:y length:iceLength isFixedLeft:left isFixedRight:val==1 stage:self]];
+          iceLength = 0;
+        }
+        
+        left = val>0;
+      } else if (val == 2) {
+        iceLength = 1;
+        left = NO;
+      } else if (val == 3) {
+        iceLength++;
+      } else if (val == 4) {
+        [iceBlocks addObject:[FIIceBlock blockWithX:x-iceLength y:y length:iceLength+1 isFixedLeft:left isFixedRight:NO stage:self]];
+        iceLength = 0;
+      } else if (val == 5) {        
+        [iceBlocks addObject:[FIIceBlock blockWithX:x y:y length:1 isFixedLeft:NO isFixedRight:NO stage:self]];
+        iceLength = 0;
+      } else if (val == 6) {
+        [flames addObject:[[[FIFire alloc] initWithX:x y:y stage:self] autorelease]];
+      } else if (val == 9) {
+        avatar = [[FIPlayerAvatar alloc] initWithX:x y:y stage:self];
+      }
+    }
+	}
+  
+	[self rebuild];	
+  
+  return self;
+}
 
 -(id)initWithGame:(FIGame*)theGame {
 	if(![super init]) return nil;
@@ -33,37 +111,36 @@
 	
 	mesh = NULL;
 	
-	int map2[] = {
-		1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 0, 0, 0,	// 0
-		1, 1, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0,
-		1, 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0, 0,
-		1, 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0, 0,	// 3
-		1, 1, 0, 1, 0, 1, 0, 0, 0, 1, 0, 0, 0, 0,
-		1, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0,	// 5
-		1, 0, 1, 1, 1, 1, 1, 1, 1, 1, 0, 0, 0, 0,
-		1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 0, 0, 0,	// 7
-		0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
-		0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,	// 9
-		0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
-		1, 1, 1, 1, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1	// 11
-	};
+	/*
+	 
+	 0	-	tomt
+	 1	-	vägg
+	 2	-	vänster is
+	 3	-	is
+	 4	-	höger is
+	 5	-	liten is
+	 6	-	eld
+	 7	-	oil
+	 8	-	burning oil
+	 9  -	start
 	
+	*/
 	
+		
 	int map[] = {
-		0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,	// 0
-		0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
-		0, 1, 1, 0, 1, 1, 1, 0, 0, 0, 0, 0, 0, 0,	// 2
-		0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0,
-		0, 0, 0, 0, 0, 1, 1, 1, 1, 1, 0, 1, 0, 0,	// 4
-		0, 0, 0, 0, 1, 1, 0, 1, 0, 0, 0, 0, 0, 0,
-		0, 0, 0, 1, 1, 0, 0, 1, 0, 0, 0, 0, 0, 0,	// 6
-		1, 0, 0, 1, 0, 0, 0, 1, 1, 1, 0, 0, 0, 0,
-		0, 1, 0, 0, 0, 1, 0, 0, 1, 1, 0, 0, 0, 0,	// 8
-		1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1,
-		0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,	// 10
-		0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0
+		1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 	// 0
+		1, 0, 1, 1, 1, 0, 0, 0, 0, 0, 1, 1, 0, 0, 1,
+		1, 1, 1, 0, 1, 0, 0, 0, 0, 0, 0, 1, 1, 0, 1,	// 2
+		1, 1, 0, 1, 1, 0, 0, 0, 0, 0, 0, 1, 1, 1, 1,
+		1, 1, 1, 1, 0, 0, 0, 1, 0, 0, 0, 0, 0, 1, 1,	// 4
+		0, 1, 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 1, 1,
+		0, 1, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 1,	// 6
+		1, 1, 0, 1, 1, 0, 1, 1, 1, 1, 1, 0, 0, 1, 1,
+		0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1,	// 8
+		1, 1, 1, 1, 1, 1, 0, 1, 0, 1, 1, 1, 1, 1, 1,
 	};
-	//	0     2     4     6     8    10 11    13
+	//0     2     4     6     8    10 11    13
+	
 	
 	memcpy(walls, map, sizeof(int)*MAP_SIZE);
 	
@@ -75,26 +152,42 @@
 	temps = [[NSMutableArray alloc] init];
 	//stones = [[NSMutableArray alloc] init];
 	
-	[iceBlocks addObject:[FIIceBlock blockWithX:3 y:2 length:1 isFixedLeft:YES isFixedRight:YES stage:self]];
-	//[iceBlocks addObject:[FIIceBlock blockWithX:2 y:5 length:1 isFixedLeft:NO isFixedRight:NO stage:self]];
+	toRemove = [[NSMutableArray alloc] init];
+	
+	[iceBlocks addObject:[FIIceBlock blockWithX:5 y:6 length:1 isFixedLeft:NO isFixedRight:NO stage:self]];
+	[iceBlocks addObject:[FIIceBlock blockWithX:5 y:5 length:1 isFixedLeft:NO isFixedRight:NO stage:self]];
+	[iceBlocks addObject:[FIIceBlock blockWithX:5 y:4 length:1 isFixedLeft:NO isFixedRight:NO stage:self]];
+	[iceBlocks addObject:[FIIceBlock blockWithX:5 y:3 length:1 isFixedLeft:NO isFixedRight:NO stage:self]];
+	[iceBlocks addObject:[FIIceBlock blockWithX:5 y:2 length:5 isFixedLeft:NO isFixedRight:NO stage:self]];
 
-	/*
-	[iceBlocks addObject:[FIIceBlock blockWithX:2 y:5 length:1 isFixedLeft:NO isFixedRight:NO stage:self]];
-	[iceBlocks addObject:[FIIceBlock blockWithX:4 y:5 length:1 isFixedLeft:NO isFixedRight:NO stage:self]];
-	[iceBlocks addObject:[FIIceBlock blockWithX:7 y:5 length:1 isFixedLeft:NO isFixedRight:NO stage:self]];
-	[iceBlocks addObject:[FIIceBlock blockWithX:7 y:4 length:1 isFixedLeft:NO isFixedRight:NO stage:self]];
-	[iceBlocks addObject:[FIIceBlock blockWithX:7 y:3 length:2 isFixedLeft:NO isFixedRight:YES stage:self]];
-	[iceBlocks addObject:[FIIceBlock blockWithX:6 y:2 length:1 isFixedLeft:YES isFixedRight:NO stage:self]];
-	*/
+	[iceBlocks addObject:[FIIceBlock blockWithX:5 y:7 length:1 isFixedLeft:YES isFixedRight:YES stage:self]];
+		
+	[flames addObject:[[[FIFire alloc] initWithX:6 y:6 stage:self] autorelease]];
+	[flames addObject:[[[FIFire alloc] initWithX:8 y:6 stage:self] autorelease]];
 	
-	[flames addObject:[[[FIFire alloc] initWithX:11 y:3 stage:self] autorelease]];
-	[flames addObject:[[[FIFire alloc] initWithX:3 y:1 stage:self] autorelease]];
+	[oils addObject:[[[FIOil alloc] initWithX:8 y:4 burning:YES stage:self] autorelease]];
 	
-	[oils addObject:[[[FIOil alloc] initWithX:3 y:5 burning:NO stage:self] autorelease]];
-	
-	avatar = [[FIPlayerAvatar alloc] initWithX:7 y:2 stage:self];
+	avatar = [[FIPlayerAvatar alloc] initWithX:3 y:6 stage:self];
 	
 	return self;
+}
+
+-(void)dealloc {
+	[background release];
+	[mesh release];
+	
+	[iceBlocks release];
+	[stones release];
+	[flames release];
+	[oils release];
+	
+	[temps release];
+	
+	[toRemove release];
+	
+	[avatar release];
+	
+	[super dealloc];
 }
 
 
@@ -160,7 +253,12 @@
 }
 
 
--(void)tick:(float)dt {
+-(void)tickTemp:(float)dt {
+	for(FIEntity *temp in temps)
+		[temp tick:dt];
+}
+
+-(void)tickRest:(float)dt {
 	for(FIIceBlock *block in iceBlocks)
 		[block tick:dt];
 	
@@ -168,37 +266,56 @@
 		[flame tick:dt];
 	
 	for(FIOil *oil in oils)
-		[oil tick:dt];
+		[oil tick:dt];	
 	
-	for(FIEntity *temp in temps)
-		[temp tick:dt];
-	
-	[avatar tick:dt];
+	[avatar tick:dt];	
 }
 
 
--(void)render {
+-(void)tick:(float)dt {	
+	[self tickTemp:dt];
+	
+	// Wait for all temporary animations to finish before ticking everything else.
+	if([temps count] == 0) [self tickRest:dt];
+	
+	// Remove entities
+	[toRemove removeAllObjects];
+}
+
+
+-(void)render:(float)dt {
 	[background render];
 	[mesh render];
 		
 	for(FIIceBlock *block in iceBlocks)
-		[block render];
+		[block render:dt];
 	
 	for(FIFire *flame in flames)
-		[flame render];
+		[flame render:dt];
 	
 	for(FIOil *oil in oils)
-		[oil render];
+		[oil render:dt];
 	
 	for(FIEntity *temp in temps)
-		[temp render];
+		[temp render:dt];
 	
-	[avatar render];
+	[avatar render:dt];
 }
 
-
+/*
 -(void)removeTemp:(FIEntity*)temp {
 	[temps removeObject:temp];
+}*/
+
+-(void)removeEntity:(FIEntity*)ent {
+	// Keep it temporarily til end of frame
+	[toRemove addObject:ent];
+	
+	for(FIEntity *ent in toRemove) {
+		[temps removeObject:ent];
+		[iceBlocks removeObject:ent];
+		[flames removeObject:ent];
+	}	
 }
 
 
@@ -209,16 +326,18 @@
 	for(FIFire *flame in flames)
 		if(flame.state != FIEntityStateResting) return NO;
 	
+	if([temps count]>0) return NO;
+	
 	return YES;
 }
 
 
 -(void)doRemoveIce {
-	[self removeIce:toToggleIce atX:toToggleX y:toToggleY magic:YES];
+	[self removeIce:toToggleIce atX:toToggleX y:toToggleY];
 }
 
 
--(void)removeIce:(FIIceBlock*)targ atX:(int)x y:(int)y magic:(BOOL)magic {
+-(void)removeIce:(FIIceBlock*)targ atX:(int)x y:(int)y {
 	if(targ.size == 1) {
 		[iceBlocks removeObject:targ];
 		return;
@@ -241,6 +360,7 @@
 			
 			[iceBlocks addObject:[[[FIIceBlock alloc] initWithX:x+1 y:y length:length isFixedLeft:NO isFixedRight:targ.fixedRight stage:self] autorelease]];
 			
+			lIce.fixedRight = NO;
 			lIce.size = x - lIce.tilePos.x;
 			
 			return;
@@ -276,7 +396,6 @@
 
 
 -(void)addIceAtX:(int)x y:(int)y {
-	// YAY!
 	FICollisionResult left = [self getCollisionAtX:x-1 y:y];
 	FICollisionResult right = [self getCollisionAtX:x+1 y:y];
 	
@@ -314,17 +433,20 @@
 	
 	if(targ) {
 		if(magic) {
-			toToggleIce = targ;
-			toToggleX = x;
-			toToggleY = y;
-			
 			FISprite *spr = [[FISprite alloc] initWithTexture:[game texture:FITextureTypeMagic]];
 			[spr createAnimation:@"full" start:4 end:0 rate:20.0f];
 			[spr setAnimationTo:@"full"];
 			FITempSprite *magic = [[FITempSprite alloc] initWithX:x y:y sprite:spr stage:self];
-			[magic onAnimationOverTarget:self action:@selector(doRemoveIce)];
+			//[magic onAnimationOverTarget:self action:@selector(doRemoveIce)];
 			[temps addObject:magic];
+			[magic release];
 			[spr release];
+			
+			[self removeIce:targ atX:x y:y];
+						
+			//toToggleIce = targ;
+			//toToggleX = x;
+			//toToggleY = y;
 		}	
 		return;
 	}
@@ -345,6 +467,7 @@
 	FITempSprite *tmpmagic = [[FITempSprite alloc] initWithX:x y:y sprite:spr stage:self];
 	[tmpmagic onAnimationOverTarget:self action:@selector(doAddIce)];
 	[temps addObject:tmpmagic];
+	[tmpmagic release];
 	[spr release];
 }
 
@@ -352,6 +475,8 @@
 -(void)toggleIce {
 	if(avatar.state != FIEntityStateResting) return;
 	
+  [avatar magic];
+  
 	if(avatar.direction == FIEntityDirectionLeft)
 		[self toggleIceAtX:avatar.tilePos.x-1 y:avatar.tilePos.y+1 magic:YES];
 	else
@@ -362,10 +487,22 @@
 -(void)ice:(FIIceBlock*)theIce collidedWithFire:(FICollisionResult)fire {
 	FIEntity *ent = fire.obstacle;
 		
-	[self removeIce:theIce atX:ent.tilePos.x y:theIce.tilePos.y magic:NO];
+	FISprite *spr = [[FISprite alloc] initWithTexture:[game texture:FITextureTypePoof] frames:4 rate:20.0f];
+	FITempSprite *tmppoof = [[FITempSprite alloc] initWithX:ent.tilePos.x y:theIce.tilePos.y sprite:spr stage:self];
+	[temps addObject:tmppoof];
+	[tmppoof release];
+	[spr release];
+	
+	[self removeIce:theIce atX:ent.tilePos.x y:theIce.tilePos.y];
 	
 	if(fire.type == FICollisionTypeFire)
 		[flames removeObject:ent];
+}
+
+
+-(void)playerDied {
+	printf("Player died!\n");
+	[game restartStage];
 }
 
 

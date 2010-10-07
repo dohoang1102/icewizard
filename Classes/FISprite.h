@@ -45,6 +45,8 @@
 	
 	id		target;
 	SEL		action;
+  
+  BOOL  flipped;
 }
 
 -(id)initWithTexture:(FITexture*)tex;
@@ -55,6 +57,8 @@
 
 -(void)tick:(float)dt;
 -(void)render;
+
+-(void)flip:(BOOL)f;
 
 -(void)onAnimationOverTarget:(id)_target action:(SEL)_action;
 

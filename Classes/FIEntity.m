@@ -40,9 +40,14 @@
 }
 
 
--(void)tick:(float)dt {
-	[gfx tick:dt];
+-(void)dealloc {
+	[gfx release];
 	
+	[super dealloc];
+}
+
+
+-(void)tick:(float)dt {	
 	if(isStatic) return;
 	
 	if (state == FIEntityStateResting) {
@@ -68,16 +73,42 @@
 	}
 }
 
--(void)render {
+-(void)render:(float)dt {
+	if(gfx == nil) return;
+	
 	glPushMatrix();
 	glTranslatef(position.x, position.y, 0.0f);
 	
 	[gfx render];
 	
 	glPopMatrix();
+	
+	// Moved this here from tick: so that animations don't suspend
+	// while a temporary sprite is animating.
+	[gfx tick:dt];
+	
+	/*
+	 
+		Frame 1			Frame 2			Frame 3
+	 
+		animationOver	här ska is
+		ta bort temp	finnas.
+		skapa is
+	 
+		Borttagning:
+		Problemet är alltså att isen försvinenr i tick, är sedan borta i render,
+		och därefter 
+	 
+	 
+	*/
 }
 
 -(void)buildMesh {}
+
+-(void)removeMesh {
+	[gfx release];
+	gfx = nil;
+}
 
 -(void)updateState:(float)dt {}
 
@@ -91,7 +122,7 @@
 
 
 -(void)reachedGoal {
-	// Avatar has reached goal, either by moving or falling.	
+	// Entity has reached goal, either by moving or falling.	
 	tilePos = goal;
 	
 	if(![self evaluateSurroundings])
@@ -108,7 +139,10 @@
 		FICollisionResult floor = [stage getCollisionAtX:tilePos.x+i y:tilePos.y+1];
 
 		if(on.fire || floor.type == FICollisionTypeBurningOil) {
-			[self collidedWithFire:on];
+			if(on.fire)
+				[self collidedWithFire:on];
+			else
+				[self collidedWithFire:floor];
 			return YES;
 		}
 	}

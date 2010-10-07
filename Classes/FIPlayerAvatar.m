@@ -10,8 +10,10 @@
 
 #import <OpenGLES/ES1/gl.h>
 
+#import "FIGame.h"
 #import "FIStage.h"
 #import "FIIceBlock.h"
+#import "FISprite.h"
 
 @implementation FIPlayerAvatar
 
@@ -25,38 +27,22 @@
 	jumpSpeed = 4.0f;
 	
 	shouldMove = NO;
+  
+  [self buildMesh];
 	
 	return self;
 }
+	
 
-
--(void)render {
-	static const GLfloat squareVertices[] = {
-        0.f,  0.f,
-		1.f,  0.f,
-        0.f,  1.f,
-		1.f,  1.f,
-    };
-	
-	static const GLfloat coords[] = {
-		0.0f,	0.0f,
-		1.0f,	0.0f,
-		0.0f,	1.0f,
-		1.0f,	1.0f
-	};
-		
-	glTranslatef(position.x, position.y, 0.0f);
-	if(direction == FIEntityDirectionLeft) {
-		glTranslatef(1.0f, 0.0f, 0.0f);
-		glScalef(-1.f, 1.0f, 1.0f);
-	}
-	
-	glColor4f(1.0f, 1.0f, 1.0f, 1.0f);
-	
-	glVertexPointer(2, GL_FLOAT, 0, squareVertices);
-	glTexCoordPointer(2, GL_FLOAT, 0, coords);
-	
-	glDrawArrays(GL_TRIANGLE_STRIP, 0, 4);
+-(void)buildMesh {
+  printf("Buildmesh");
+  [gfx release];
+  gfx = [[FISprite alloc] initWithTexture:[stage.game texture:FITextureTypePlayer]];
+  FISprite *spr = (FISprite*)gfx;
+  [spr createAnimation:@"stand" start:0 end:0 rate:0.0f];
+  [spr createAnimation:@"run" start:0 end:1 rate:8.0f];
+  [spr createAnimation:@"magic" start:2 end:3 rate:10.0f];
+  [spr setAnimationTo:@"stand"];
 }
 
 
@@ -89,6 +75,11 @@
 	return shouldMove;	// Don't want to run [stage playerMayMove] here.
 }
 
+-(void)stop {
+  [gfx setAnimationTo:@"stand"];
+  [super stop];
+}
+
 
 -(void)collidedWithWall:(FICollisionResult)solid offset:(int)offset {	
 	// Push ice
@@ -117,14 +108,20 @@
 	}
 }
 
+-(void)collidedWithFire:(FICollisionResult)fire {
+	[stage playerDied];
+}
 
 -(void)moveLeft {
+	printf("moveLeft\n");
 	if(direction == FIEntityDirectionLeft) {
 		wantDir = FIEntityDirectionLeft;
 		shouldMove = YES;
+    [gfx setAnimationTo:@"run"];
 	} else if(state == FIEntityStateResting) {
 		direction = FIEntityDirectionLeft;
 		shouldMove = NO;
+    [gfx flip:YES];
 	}
 }
 
@@ -133,15 +130,28 @@
 	if(direction == FIEntityDirectionRight) {
 		wantDir = FIEntityDirectionRight;
 		shouldMove = YES;
+    [gfx setAnimationTo:@"run"];
 	} else if(state == FIEntityStateResting) {
 		direction = FIEntityDirectionRight;
 		shouldMove = NO;
+    [gfx flip:NO];
 	}
+}
+
+-(void)magic {
+  [gfx setAnimationTo:@"magic"];
+  [gfx onAnimationOverTarget:self action:@selector(stopMagic)];
+}
+
+-(void)stopMagic {
+  [gfx setAnimationTo:@"stand"];
 }
 
 
 -(void)stopMoving {
 	shouldMove = NO;
 }
+
+
 
 @end

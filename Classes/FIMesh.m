@@ -42,6 +42,13 @@
 	return self;
 }
 
+-(void)dealloc {
+	free(mesh);
+	free(texcoords);
+	
+	[super dealloc];
+}
+
 -(void)addQuad:(CGPoint)pos withTextureOffset:(int)offset {
 	if(numElements >= maxElements) {
 		printf("Exceeded max number of triangles.\n");
@@ -176,12 +183,6 @@
 	glVertexPointer(2, GL_FLOAT, 0, mesh);
 	glTexCoordPointer(2, GL_FLOAT, 0, texcoords);
 	glDrawArrays(GL_TRIANGLES, 0, numVerts);
-}
-
--(void)dealloc {
-	free(mesh);
-	free(texcoords);
-	[super dealloc];
 }
 
 @end

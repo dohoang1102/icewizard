@@ -15,6 +15,7 @@
 -(id)initWithX:(int)_x y:(int)_y sprite:(FISprite*)sprite stage:(FIStage *)theStage {
 	if(![super initWithX:_x y:_y stage:theStage]) return nil;
 	
+	// This is dealloc'd in FIEntity
 	gfx = [sprite retain];
 	
 	isStatic = YES;
@@ -27,10 +28,10 @@
 	
 	return self;
 }
+	
 
 -(void)animationOver {
-	printf("TempSprite: Animation over\n");
-	[stage removeTemp:self];
+	[stage removeEntity:self];
 	if(target != nil)
 		[target performSelector:action];
 }

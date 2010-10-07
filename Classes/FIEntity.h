@@ -62,9 +62,10 @@ typedef struct {
 -(id)initWithX:(int)_x y:(int)_y stage:(FIStage*)theStage;
 
 -(void)tick:(float)dt;
--(void)render;
+-(void)render:(float)dt;
 
 -(void)buildMesh;
+-(void)removeMesh;
 
 -(void)stop;
 

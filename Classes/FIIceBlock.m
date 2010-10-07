@@ -54,7 +54,13 @@
 
 -(void)buildMesh {
 	[gfx release];
-	gfx = [[FIMesh alloc] initWithMode:GL_TRIANGLES texture:[stage.game texture:FITextureTypeIce] numberOfTiles:size];
+	
+	int numTiles = size;
+	if(fixedLeft) numTiles++;
+	if(fixedRight) numTiles++;
+	
+	
+	gfx = [[FIMesh alloc] initWithMode:GL_TRIANGLES texture:[stage.game texture:FITextureTypeIce] numberOfTiles:numTiles];
 	FIMesh *mesh = (FIMesh*)gfx;
 	for (int i=0; i<size; i++) {
 		int u;
@@ -68,6 +74,11 @@
 		
 		[mesh addQuad:CGPointMake(i, 0.0f) withTextureOffset:u];
 	}
+	
+	if(fixedLeft)
+		[mesh addQuad:CGPointMake(-1.0, 0.0f) withTextureOffset:5];
+	if(fixedRight)
+		[mesh addQuad:CGPointMake(size, 0.0f) withTextureOffset:4];
 }
 	
 
@@ -96,14 +107,12 @@
 
 
 -(void)collidedWithFire:(FICollisionResult)fire {
-	printf("I collided with fire.\n");
 	[stage ice:self collidedWithFire:fire];
 }
 
 
 -(BOOL)hasIceAtX:(int)_x y:(int)_y {
 	if(tilePos.y == _y && _x >= tilePos.x && _x < tilePos.x+size) return YES;
-	//if(goal.y == _y && _x >= goal.x && _x < goal.x+length) return YES;
 	return NO;
 }
 

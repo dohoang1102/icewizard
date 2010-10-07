@@ -28,8 +28,8 @@ typedef struct {
 	id				obstacle;
 } FICollisionResult;
 
-#define MAP_WIDTH	14
-#define MAP_HEIGHT	12
+#define MAP_WIDTH	15
+#define MAP_HEIGHT	10
 #define MAP_SIZE	MAP_WIDTH * MAP_HEIGHT
 
 @class FIGame;
@@ -43,7 +43,7 @@ typedef struct {
 @interface FIStage : NSObject {
 	FIGame			*game;
 	
-	int				walls[168];
+	int				walls[MAP_SIZE];
 	
 	FIMesh			*background;
 	FIMesh			*mesh;
@@ -55,6 +55,8 @@ typedef struct {
 	
 	NSMutableArray  *temps;
 	
+	NSMutableArray	*toRemove;
+	
 	FIPlayerAvatar	*avatar;
 	
 	FIIceBlock		*toToggleIce;
@@ -64,22 +66,26 @@ typedef struct {
 @property (nonatomic,readonly) FIGame *game;
 @property (nonatomic,readonly) FIPlayerAvatar *avatar;
 
++(FIStage*)stageWithName:(NSString*)theName game:(FIGame*)theGame;
+
 -(id)initWithGame:(FIGame*)theGame;
 -(void)rebuild;
 
 -(void)tick:(float)dt;
--(void)render;
+-(void)render:(float)dt;
 
--(void)removeTemp:(FIEntity*)temp;
+//-(void)removeTemp:(FIEntity*)temp;
+-(void)removeEntity:(FIEntity*)ent;
 
 -(BOOL)playerMayMove;
 
 -(void)addIceAtX:(int)x y:(int)y;
--(void)removeIce:(FIIceBlock*)targ atX:(int)x y:(int)y magic:(BOOL)magic;
+-(void)removeIce:(FIIceBlock*)targ atX:(int)x y:(int)y;
 -(void)toggleIceAtX:(int)x y:(int)y magic:(BOOL)magic;
 -(void)toggleIce;
 
 -(void)ice:(FIIceBlock*)theIce collidedWithFire:(FICollisionResult)fire;
+-(void)playerDied;
 
 -(FICollisionResult)getCollisionAtX:(int)x y:(int)y;
 -(FICollisionResult)getCollisionAtX:(int)x y:(int)y ignore:(FIEntity*)ignore;

@@ -22,21 +22,48 @@
 	printf("Initialize game.\n");
 	
 	[self loadTextures];
-	stage = [[FIStage alloc] initWithGame:self];
 
+	[self startStageWithName:@"bar"];
+	
 	return self;
+}
+
+-(void)restartStage {
+  nextStage = [currentStage retain];
+}
+
+-(void)startStageWithName:(NSString*)name {
+	[currentStage release];
+	[nextStage release];
+	nextStage = [name retain];
+	currentStage = [name retain];
 }
 
 -(void)tick:(float)dt {
 	[stage tick:dt];
+	
+	if(nextStage != nil) {
+		
+		// This will be made prettier.
+		// Stage should fade out, and then the new one
+		// should fade in.
+		
+		[stage release];
+		stage = [[FIStage stageWithName:nextStage game:self] retain];
+		[nextStage release];
+		nextStage = nil;
+	}
 }
 
 
--(void)render {
+-(void)render:(float)dt {
 	glClear(GL_COLOR_BUFFER_BIT);
 	glLoadIdentity();
 	
-	[stage render];
+	glRotatef(90.0f, 0.0f, 0.0f, 1.0f);
+	glTranslatef(0.0f, -10.0f, 0.0f);
+	
+	[stage render:dt];
 }
 
 
@@ -46,6 +73,8 @@
 	textures[FITextureTypeFire] = [[FITexture textureWithName:@"fire"] retain];
 	textures[FITextureTypeOil] = [[FITexture textureWithName:@"oil"] retain];
 	textures[FITextureTypeMagic] = [[FITexture textureWithName:@"magic"] retain];
+	textures[FITextureTypePoof] = [[FITexture textureWithName:@"poof"] retain];
+  textures[FITextureTypePlayer] = [[FITexture textureWithName:@"player"] retain];
 }
 
 
@@ -59,21 +88,20 @@
 
 
 -(void)downAt:(CGPoint)pos {
+	
+	pos.x /= 32.0f;
+	pos.y /= 32.0f;
+	
+	printf("%f %f\n", pos.x, pos.y);
+	
 	if(![stage playerMayMove]) return;
-	if(pos.y > 300) {
-		if(pos.x < 160)
+	if(pos.y > 5.0f) {
+		if(pos.x < 7.5f)
 			[stage.avatar moveLeft];
 		else
 			[stage.avatar moveRight];
 	} else {		
-		// Recalc pos
-		//int x = pos.x / 16.f;
-		//int y = pos.y / 16.f;
-		
-		//[stage toggleIceAtX:x y:y];
 		[stage toggleIce];
-				
-		//[stage toggleIce];
 	}
 }
 

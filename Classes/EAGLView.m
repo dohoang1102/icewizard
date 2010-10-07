@@ -88,7 +88,9 @@
 {	
 	float dt = 1.f/60.f;
 	[game tick:dt];
-	[game render];
+	[game render:dt];
+	
+	//usleep(400000);
 	
 	[context presentRenderbuffer:GL_RENDERBUFFER_OES];
 }
@@ -114,7 +116,7 @@
 	
     glMatrixMode(GL_PROJECTION);
     glLoadIdentity();
-	glOrthof(0.0, 20.0, 30.0, 0.0, -1.0f, 1.0f);
+	glOrthof(0.0, 10.0, 15.0, 0.0, -1.0f, 1.0f);
     glMatrixMode(GL_MODELVIEW);
 }
 
@@ -199,11 +201,11 @@
 -(void)touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event {	
 	CGPoint pos = [[touches anyObject] locationInView:nil];
 
-	//CGPoint newPos;
-	//newPos.x = pos.y;
-	//newPos.y = self.frame.size.width - pos.x;
+	CGPoint newPos;
+	newPos.x = pos.y;
+	newPos.y = self.frame.size.width - pos.x;
 	
-	[game downAt:pos];
+	[game downAt:newPos];
 }
 
 -(void)touchesEnded:(NSSet *)touches withEvent:(UIEvent *)event {

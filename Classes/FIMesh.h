@@ -39,6 +39,8 @@
 -(void)addQuad:(CGPoint)pos withTextureOffset:(int)offset;
 -(void)addSubtiledSquad:(CGPoint)pos ul:(int)ul ur:(int)ur bl:(int)bl br:(int)br;
 
+-(void)createSubSquad:(CGRect)rect coords:(CGRect)coords offset:(int)offset;
+
 -(void)tick:(float)dt;
 -(void)render;
 

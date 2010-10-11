@@ -54,51 +54,25 @@
 		printf("Exceeded max number of triangles.\n");
 		return;
 	 }
+  
+  [self createSubSquad:CGRectMake(pos.x, pos.y, pos.x+1., pos.y+1.) coords:CGRectMake(0.,0.,1.,1.) offset:offset];
+  
+  return;
+}
+
+
+-(void)addSubtiledSquad:(CGPoint)pos ul:(int)ul ur:(int)ur bl:(int)bl br:(int)br {
+	if(!subTiled || numElements >= maxElements) return;
 	
 	float x = pos.x;
 	float y = pos.y;
-		
-	float u = textureStep * offset;
 	
-	mesh[numElements] = x;
-	mesh[numElements+1] = y;
-	
-	mesh[numElements+2] = x+1.0;
-	mesh[numElements+3] = y;
-	
-	mesh[numElements+4] = x;
-	mesh[numElements+5] = y+1.0;
-	
-	mesh[numElements+6] = x+1.0;
-	mesh[numElements+7] = y;
-	
-	mesh[numElements+8] = x+1.0;
-	mesh[numElements+9] = y+1.0;
-	
-	mesh[numElements+10] = x;
-	mesh[numElements+11] = y+1.0;
-	
-	texcoords[numElements] = u;
-	texcoords[numElements+1] = 0.0f;
-	
-	texcoords[numElements+2] = u+textureStep;
-	texcoords[numElements+3] = 0.0f;
-	
-	texcoords[numElements+4] = u;
-	texcoords[numElements+5] = 1.0f;
-	
-	texcoords[numElements+6] = u+textureStep;
-	texcoords[numElements+7] = 0.0f;
-	
-	texcoords[numElements+8] = u+textureStep;
-	texcoords[numElements+9] = 1.0f;
-	
-	texcoords[numElements+10] = u;
-	texcoords[numElements+11] = 1.0f;
-	
-	numElements += 12;
-	numVerts += 6;
+	[self createSubSquad:CGRectMake(x,y,x+0.5f,y+0.5f) coords:CGRectMake(0.0f,0.0f,0.5f,0.5f) offset:ul];
+	[self createSubSquad:CGRectMake(x+0.5f,y,x+1.0f,y+0.5f) coords:CGRectMake(0.5f,0.0f,1.0f,0.5f) offset:ur];
+	[self createSubSquad:CGRectMake(x,y+0.5f,x+0.5f,y+1.0f) coords:CGRectMake(0.0f,0.5f,0.5f,1.0f) offset:bl];
+	[self createSubSquad:CGRectMake(x+0.5f,y+0.5f,x+1.0f,y+1.0f) coords:CGRectMake(0.5f,0.5f,1.0f,1.0f) offset:br];
 }
+
 
 -(void)createSubSquad:(CGRect)rect coords:(CGRect)coords offset:(int)offset {
 	float u = offset * textureStep + (coords.origin.x * textureStep);
@@ -155,17 +129,6 @@
 	numVerts += 6;
 }
 
--(void)addSubtiledSquad:(CGPoint)pos ul:(int)ul ur:(int)ur bl:(int)bl br:(int)br {
-	if(!subTiled || numElements >= maxElements) return;
-	
-	float x = pos.x;
-	float y = pos.y;
-	
-	[self createSubSquad:CGRectMake(x,y,x+0.5f,y+0.5f) coords:CGRectMake(0.0f,0.0f,0.5f,0.5f) offset:ul];
-	[self createSubSquad:CGRectMake(x+0.5f,y,x+1.0f,y+0.5f) coords:CGRectMake(0.5f,0.0f,1.0f,0.5f) offset:ur];
-	[self createSubSquad:CGRectMake(x,y+0.5f,x+0.5f,y+1.0f) coords:CGRectMake(0.0f,0.5f,0.5f,1.0f) offset:bl];
-	[self createSubSquad:CGRectMake(x+0.5f,y+0.5f,x+1.0f,y+1.0f) coords:CGRectMake(0.5f,0.5f,1.0f,1.0f) offset:br];
-}
 
 -(void)tick:(float)dt {}
 
